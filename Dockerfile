@@ -7,4 +7,4 @@ ENV APACHE_LOG_DIR /var/log/apache2
 
 COPY ./ /usr/local/apache2/htdocs/
 
-EXPOSE 80 CMD [“apache2ctl”, “-D”, “FOREGROUND”]
+CMD ["-D", "FOREGROUND"]
