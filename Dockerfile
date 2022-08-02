@@ -1,15 +1,12 @@
-FROM ubuntu:18.04
+FROM alpine:latest
 
-RUN apt-get update && apt-get install -y apache2
+RUN  apk update && apk upgrade && \
+     apk add apache2 && \
+     rm -rf /var/cache/apk/*
 
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_RUN_DIR /var/www/html
+WORKDIR /var/www/localhost/htdocs
+COPY  . /var/www/localhost/htdocs
 
-WORKDIR /var/www/html
+EXPOSE 80
 
-COPY . /var/www/html/
-
-ENTRYPOINT ["/usr/sbin/apache2"]
-CMD ["-D", "FOREGROUND"]
+CMD  [ "/usr/sbin/httpd", "-D", "FOREGROUND"]
